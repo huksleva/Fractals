@@ -15,40 +15,46 @@ MAX_ITER = 300
 # Константа для множества Жюлиа
 c = complex(-0.7, 0.27015)
 
-# Создание массива пикселей
-image = np.zeros((HEIGHT, WIDTH))
 
-# Генерация фрактала
-for x in range(WIDTH):
-    for y in range(HEIGHT):
+def main():
+    # Создание массива пикселей
+    image = np.zeros((HEIGHT, WIDTH))
 
-        # Преобразование координат пикселя в комплексное число
-        zx = x_min + (x / WIDTH) * (x_max - x_min)
-        zy = y_min + (y / HEIGHT) * (y_max - y_min)
+    # Генерация фрактала
+    for x in range(WIDTH):
+        for y in range(HEIGHT):
 
-        z = complex(zx, zy)
+            # Преобразование координат пикселя в комплексное число
+            zx = x_min + (x / WIDTH) * (x_max - x_min)
+            zy = y_min + (y / HEIGHT) * (y_max - y_min)
 
-        iteration = 0
+            z = complex(zx, zy)
 
-        # Итерационный процесс
-        while abs(z) < 2 and iteration < MAX_ITER:
-            z = z * z + c
-            iteration += 1
+            iteration = 0
 
-        image[y, x] = iteration
+            # Итерационный процесс
+            while abs(z) < 2 and iteration < MAX_ITER:
+                z = z * z + c
+                iteration += 1
 
-# Отображение фрактала
-plt.figure(figsize=(10, 10))
-plt.imshow(
-    image,
-    cmap='inferno',
-    extent=(x_min, x_max, y_min, y_max)
-)
+            image[y, x] = iteration
 
-plt.title("Julia Set")
-plt.xlabel("Re")
-plt.ylabel("Im")
+    # Отображение фрактала
+    plt.figure(figsize=(10, 10))
+    plt.imshow(
+        image,
+        cmap='inferno',
+        extent=(x_min, x_max, y_min, y_max)
+    )
 
-plt.colorbar(label="Iterations")
+    plt.title("Julia Set")
+    plt.xlabel("Re")
+    plt.ylabel("Im")
 
-plt.show()
+    plt.colorbar(label="Iterations")
+
+    plt.show()
+
+
+if __name__ == "__main__":
+    main()
